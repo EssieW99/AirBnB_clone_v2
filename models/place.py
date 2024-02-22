@@ -6,6 +6,16 @@ from sqlalchemy.orm import relationship
 from models.engine.file_storage import FileStorage
 
 
+place_amenity = Table(
+    'place_amenity',
+    Base.metadata,
+    Column('place_id', String(60), ForeignKey(
+        'places.id'), nullable=False, primary_key=True),
+    Column('amenity_id', String(60), ForeignKey(
+        'amenities.id'), nullable=False, primary_key=True)
+)
+
+
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = 'places'
@@ -37,13 +47,15 @@ class Place(BaseModel, Base):
         """Returns a list of amenity instances based on amenity_ids
             that contains all amenity.id linked to the Place
         """
-        storage = FileStorage
-        # amenities_list = [(amenity) for amenity in storage.all() if]
+        amenities_list = [(amenity_id)
+                          for amenity_id in self.amenity_ids]
+        return amenities_list
 
-
-place_amenity = Table('place_amenity', Base.metadata,
-                      Column('place_id', String(60), ForeignKey(
-                          'place.id'), nullable=False),
-                      Column('amenity_id', String(60), ForeignKey(
-                          'amenities.id'), nullable=False)
-                      )
+    @amenities.setter
+    def amenities(self, amenity):
+        """Handles append method for adding an Amenity.id
+        to the attribute amenity_ids
+        """
+        from models.amenity import Amenity
+        if isinstance(amenity, Amenity):
+            self.amenity_ids.append(amenity.id)
