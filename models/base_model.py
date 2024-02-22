@@ -41,8 +41,8 @@ class BaseModel:
             if "id" not in kwargs:
                 self.id = str(uuid.uuid4())
 
-            if "name" in kwargs:
-                self.name = kwargs["name"]
+            # if "name" in kwargs:
+            #     self.name = kwargs["name"]
             for key in kwargs:
                 if key != "__class__":
                     setattr(self, key, kwargs[key])
@@ -68,8 +68,11 @@ class BaseModel:
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
 
-        if dictionary["_sa_instance_state"]:
-            del dictionary['_sa_instance_state']
+        try:
+            del (self.__dict__['_sa_instance_state'])
+        except KeyError:
+            pass
+
         return dictionary
 
     def delete(self):
