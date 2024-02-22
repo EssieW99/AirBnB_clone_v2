@@ -41,8 +41,8 @@ class BaseModel:
             if "id" not in kwargs:
                 self.id = str(uuid.uuid4())
 
-            if "name" in kwargs:
-                self.name = kwargs["name"]
+            # if "name" in kwargs:
+            #     self.name = kwargs["name"]
             for key in kwargs:
                 if key != "__class__":
                     setattr(self, key, kwargs[key])
@@ -61,15 +61,15 @@ class BaseModel:
 
     def to_dict(self):
         """Convert instance into dict format"""
-        dictionary = {}
-        dictionary.update(self.__dict__)
-        dictionary.update({'__class__':
-                          (str(type(self)).split('.')[-1]).split('\'')[0]})
+        dictionary = self.__dict__.copy()
+        dictionary['__class__'] = str(type(self).__name__)
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
 
-        if dictionary["_sa_instance_state"]:
+        # Check if '_sa_instance_state' key exists before trying to delete it
+        if '_sa_instance_state' in dict:
             del dictionary['_sa_instance_state']
+
         return dictionary
 
     def delete(self):
