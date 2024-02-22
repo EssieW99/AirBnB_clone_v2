@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from sqlalchemy import Table, Column, String, ForeignKey, Integer, Float
 from sqlalchemy.orm import relationship
 from models.engine.file_storage import FileStorage
 
@@ -21,6 +21,8 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     amenity_ids = []
     reviews = relationship('Review', backref='place', cascade='all, delete')
+    amenities = relationship(
+        'Amenity', secondary='place_amenity', viewonly=False)
 
     @property
     def reviews(self):
@@ -28,3 +30,20 @@ class Place(BaseModel, Base):
         storage = FileStorage
         reviews_list = [(review) for review in storage.all()
                         if review.place_id == review.id]
+        return reviews_list
+
+    @property
+    def amenities(self):
+        """Returns a list of amenity instances based on amenity_ids
+            that contains all amenity.id linked to the Place
+        """
+        storage = FileStorage
+        # amenities_list = [(amenity) for amenity in storage.all() if]
+
+
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60), ForeignKey(
+                          'place.id'), nullable=False),
+                      Column('amenity_id', String(60), ForeignKey(
+                          'amenities.id'), nullable=False)
+                      )
