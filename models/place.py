@@ -9,9 +9,9 @@ from models.engine.file_storage import FileStorage
 place_amenity = Table(
     'place_amenity',
     Base.metadata,
-    Column('place_id', ForeignKey(
+    Column('place_id', String(60), ForeignKey(
         'places.id'), nullable=False, primary_key=True),
-    Column('amenity_id', ForeignKey(
+    Column('amenity_id', String(60), ForeignKey(
         'amenities.id'), nullable=False, primary_key=True)
 )
 
@@ -32,7 +32,7 @@ class Place(BaseModel, Base):
     amenity_ids = []
     reviews = relationship('Review', backref='place', cascade='all, delete')
     amenities = relationship(
-        'Amenity', secondary=place_amenity, back_populates='places', viewonly=False)
+        'Amenity', secondary=place_amenity, viewonly=False)
 
     @property
     def reviews(self):
