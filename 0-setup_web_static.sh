@@ -31,7 +31,7 @@ sudo rm /etc/nginx/sites-enabled/default
 
 
 #Update nginx.config
-tee "
+sudo echo "
 server {
         listen 80 default_server;
         listen [::]:80 default_server;
@@ -64,7 +64,7 @@ server {
                 alias /data/web_static/current/;
                 add_header X-Served-By "473257-web-01";
         }
-}" > /etc/nginx/sites-available/default
+}" | sudo tee /etc/nginx/sites-available/default
 
 #create new symbolic link
 sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
