@@ -8,8 +8,12 @@ sudo apt install -y nginx
 sudo ufw allow 'Nginx HTTP'
 
 #Configure paths
-sudo mkdir -p /data/web_static/releases/test/
+sudo mkdir -p /data/
+sudo mkdir -p /data/web_static/
+sudo mkdir -p /data/web_static/releases/
 sudo mkdir -p /data/web_static/shared/
+sudo mkdir -p /data/web_static/releases/test/
+sudo touch /data/web_static/releases/test/index.html
 
 #Update permissions
 sudo chown -R "ubuntu":"ubuntu" /data/
@@ -31,7 +35,7 @@ sudo rm /etc/nginx/sites-enabled/default
 
 
 #Update nginx.config
-sudo tee "
+tee "
 server {
         listen 80 default_server;
         listen [::]:80 default_server;
