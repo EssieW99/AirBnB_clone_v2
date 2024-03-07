@@ -1,19 +1,15 @@
 #!/usr/bin/env bash
 #Installs and configures nginx on a server
 #Install nginx
-sudo apt update -y
-sudo apt install -y nginx
+sudo apt-get update -y
+sudo apt-get install -y nginx
 
 # #firewall config
 sudo ufw allow 'Nginx HTTP'
 
 #Configure paths
-sudo mkdir -p /data/
-sudo mkdir -p /data/web_static/
-sudo mkdir -p /data/web_static/releases/
-sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
-sudo touch /data/web_static/releases/test/index.html
+sudo mkdir -p /data/web_static/shared/
 
 #Update permissions
 sudo chown -R "ubuntu":"ubuntu" /data/
