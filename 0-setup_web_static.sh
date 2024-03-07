@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #Installs and configures nginx on a server
 #Install nginx
-sudo apt update -y
-sudo apt install -y nginx
+# sudo apt update -y
+# sudo apt install -y nginx
 
-#firewall config
-sudo ufw allow 'Nginx HTTP'
+# #firewall config
+# sudo ufw allow 'Nginx HTTP'
 
 #Configure paths
 sudo mkdir -P /data/web_static/releases/test/
