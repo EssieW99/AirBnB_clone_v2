@@ -1,16 +1,19 @@
 #!/usr/bin/python3
 """Compresses the webstatic files into an archive"""
-from fabric.api import *
-from datetime import datetime
+from fabric.api import local
+import fabric
+from time import strftime
 
 
-@task
-def do_pack(ctx):
-    """Use run the compress command tar"""
-    archive_name = f"web_static_{datetime.now()}.tgz"
-    res = local(f"tar -c /versions/{archive_name} web_static/ ")
+def do_pack():
+    """Archive the web_static folder"""
+    filename = strftime("%Y%m%d%H%M%S")
+    archive_path = "versions/web_static_{}.tgz".format(filename)
 
-    if res.failed:
-        print(f"Packing web_static to versions/{archive_name}")
-    else:
+    try:
+        local("mkdir -p versions")
+        local("tar -czvf {} web_static/".format(archive_path))
+        return archive_path
+    except fabric.exceptions.CommandExecutionError as e:
+        print(e)
         return None
