@@ -73,6 +73,10 @@ package { 'nginx':
   path => '/usr/bin/:/usr/local/bin/:/bin/'
 }
 
+-> file {'chmod 755 -R /data/':
+  path => '/data/'
+}
+
 file { '/var/www':
   ensure => 'directory'
 }
