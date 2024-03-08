@@ -24,7 +24,7 @@ sudo echo "<html>
 </html>" | sudo tee /data/web_static/releases/test/index.html
 
 #create symbolic links
-ln -s /data/web_static/releases/test  /data/web_static/current
+sudo ln -s /data/web_static/releases/test  /data/web_static/current
 
 #Remove old config
 sudo rm /etc/nginx/sites-enabled/default
