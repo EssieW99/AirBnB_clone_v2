@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """Deploys an archive to a remote host"""
 from fabric.api import put, sudo, run, env
 from fabric import exceptions
