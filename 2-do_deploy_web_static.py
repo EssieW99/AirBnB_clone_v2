@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!usr/bin/python3
 """Deploys an archive to a remote host"""
 from fabric.api import put, sudo, run, env
 from fabric import exceptions
@@ -6,6 +6,7 @@ from os import path
 
 env.hosts = ["54.237.82.60", "100.27.4.209"]
 env.user = "ubuntu"
+env.key = "~/.ssh/id_rsa"
 
 
 def do_deploy(archive_path):
@@ -19,7 +20,9 @@ def do_deploy(archive_path):
         put("{}".format(archive_path), "/tmp/{}".format(archive_name), mode=755)
         run("mkdir -p /data/web_static/releases/{}".format(archive_no_ext))
         sudo(
-            f"tar -xzvf /tmp/{archive_name} -C /data/web_static/releases/{archive_no_ext}/")
+            f"tar -xzf /tmp/{archive_name} -C /data/web_static/releases/{archive_no_ext}/")
+        sudo("mv /data/web_static/releases/{}/web_static/* \
+             /data/web_static/releases/{}".format(archive_no_ext, archive_no_ext))
         sudo("rm /tmp/{}".format(archive_name))
         sudo("rm /data/web_static/current")
         sudo(
