@@ -21,7 +21,7 @@ def hello_2():
 
 
 @app.route("/c/<text>", methods=['GET'], strict_slashes=False)
-def use_var(text):
+def flask_var(text):
     """Ouputs predefined route text"""
     myvar = " ".join(text.split("_"))
     return (f"C {myvar}")
