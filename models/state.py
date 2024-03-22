@@ -20,9 +20,10 @@ class State(BaseModel, Base):
         """
         res = []
         storage = FileStorage()
-        all_cities = [(city) for city in storage.all(City).items()]
+        all_cities = storage.all(City)
 
-        for k, v in all_cities:
-            res.append(str(v))
+        for city in all_cities.values():
+            if city.state_id == self.id:
+                res.append(city)
 
         return res
