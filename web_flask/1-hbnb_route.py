@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Creates a basic python route"""
+"""Starts a minimal python app
+Creates routes for the app
+"""
 from app import create_app
 
 
@@ -8,14 +10,14 @@ app = create_app()
 
 @app.route("/", methods=['GET'], strict_slashes=False)
 def hello():
-    """Prints out hello"""
+    """Prints out hello to the root route of the flask app"""
     greeting = "Hello HBNB!"
     return greeting
 
 
 @app.route("/hbnb", methods=['GET'], strict_slashes=False)
 def hello_2():
-    """Prints out specified greeting"""
+    """Prints out specified greeting at the route /hbnb"""
     output = "HBNB"
     return output
 
