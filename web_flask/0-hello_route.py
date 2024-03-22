@@ -2,7 +2,7 @@
 """Starts a minimal python app
 Creates routes for the app
 """
-from __init__ import create_app
+from app import create_app
 
 
 app = create_app()
