@@ -92,3 +92,7 @@ class DBStorage:
         Session_set = sessionmaker(
             bind=self.__engine, expire_on_commit=False)
         self.__Session = scoped_session(Session_set)
+
+    def close(self):
+        """Close the connection from the connection pool"""
+        self.__Session.close()
