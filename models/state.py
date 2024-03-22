@@ -4,7 +4,7 @@ from models.base_model import BaseModel, Base
 from models.city import City
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-from models import storage
+from models.engine.file_storage import FileStorage
 
 
 class State(BaseModel, Base):
@@ -19,6 +19,7 @@ class State(BaseModel, Base):
             For use with Filestorage
         """
         res = []
+        storage = FileStorage()
         all_cities = [(city) for city in storage.all(City).items()]
 
         for k, v in all_cities:
