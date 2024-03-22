@@ -2,10 +2,10 @@
 """Starts a minimal python app
 Creates routes for the app
 """
-from app import create_app
+from flask import Flask
 
 
-app = create_app()
+app = Flask(__name__)
 
 
 @app.route("/", methods=['GET'], strict_slashes=False)
