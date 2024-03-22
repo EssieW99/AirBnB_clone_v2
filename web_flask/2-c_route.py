@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """Creates a basic python route"""
-from __init__ import create_app
+from flask import Flask
 
 
-app = create_app()
+app = Flask(__name__)
 
 
 @app.route("/", methods=['GET'], strict_slashes=False)
