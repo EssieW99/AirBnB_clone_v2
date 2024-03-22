@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
 from models.base_model import BaseModel, Base
+from models.city import City
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 from models.engine.file_storage import FileStorage
@@ -17,8 +18,11 @@ class State(BaseModel, Base):
         """Getter attribute that returns a list of city instances
             For use with Filestorage
         """
+        res = []
         storage = FileStorage()
-        filtered_cities = [(city) for city in storage.all()
-                           if city.state_id == city.id]
+        all_cities = [(city) for city in storage.all(City).items()]
 
-        return filtered_cities
+        for k, v in all_cities:
+            res.append(str(v))
+
+        return res
