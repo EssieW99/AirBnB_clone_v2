@@ -57,11 +57,7 @@ def temp_num(n):
 def temp_logic_num(n):
     """Outputs predefined route number"""
     if n.isdigit():
-        if n % 2 == 0:
-            ans = 'even'
-        else:
-            ans = 'odd'
-        return render_template("6-number_odd_or_even.html", n=n, ans=ans)
+        return render_template("6-number_odd_or_even.html", n=n)
     else:
         abort(404)
 
