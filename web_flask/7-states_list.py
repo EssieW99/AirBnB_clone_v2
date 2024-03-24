@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """Creates a basic python route"""
-from flask import Flask, abort, render_template
+from flask import Flask, render_template
 from models import storage
-from models.state import State
 
 
 app = Flask(__name__)
@@ -11,8 +10,7 @@ app = Flask(__name__)
 @app.route("/states_list", methods=["GET"], strict_slashes=False)
 def list_states():
     """Returns a list of all states"""
-    state_info = []
-    states = storage.all(State)
+    states = storage.all("State")
     return render_template("7-states_list.html", states=states)
 
 
