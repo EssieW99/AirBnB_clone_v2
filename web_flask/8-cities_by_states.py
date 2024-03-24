@@ -3,7 +3,6 @@
 from flask import Flask, render_template
 from models import storage
 from models.state import State
-from models.city import City
 
 
 app = Flask(__name__)
@@ -13,9 +12,8 @@ app = Flask(__name__)
 def list_states():
     """Returns a list of all states and their cities"""
     states = storage.all(State)
-    cities = storage.all(City)
     return render_template(
-        "8-cities_by_states.html", states=states, cities=cities)
+        "8-cities_by_states.html", states=states)
 
 
 @app.teardown_appcontext
