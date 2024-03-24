@@ -53,14 +53,15 @@ def temp_num(n):
         abort(404)
 
 
-@app.route("/number_odd_or_even/<n>", methods=['GET'], strict_slashes=False)
+@app.route("/number_odd_or_even/<int:n>", methods=['GET'], strict_slashes=False)
 def temp_logic_num(n):
     """Outputs predefined route number"""
-    if n.isdigit():
-        return render_template("6-number_odd_or_even.html", n=n)
+    if n % 2 == 0:
+        ans = "even"
     else:
-        abort(404)
+        ans = "odd"
+    return render_template("6-number_odd_or_even.html", n=n, ans=ans)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5001)
