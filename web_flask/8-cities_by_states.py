@@ -19,7 +19,7 @@ def list_states():
 
 
 @app.teardown_appcontext
-def teardown_db(exception=None):
+def teardown_db(exception):
     """Performs cleanup tasks by closing the db connection """
     storage.close()
 
