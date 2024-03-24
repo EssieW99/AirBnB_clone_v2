@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Creates a basic python route"""
-from flask import Flask, abort, render_template
+from flask import Flask, render_template
 from models import storage
 from models.state import State
 from models.city import City
@@ -18,8 +18,8 @@ def list_states():
         "8-cities_by_states.html", states=states, cities=cities)
 
 
-@app.teardown_appcontext
-def teardown_appcontext(exception):
+@app.teardown_request
+def teardown_db(exception):
     """Performs cleanup tasks by closing the db connection """
     storage.close()
 
