@@ -1,19 +1,22 @@
 #!/usr/bin/python3
-"""Compresses the webstatic files into an archive"""
+"""
+generates a .tgz archive from the contents of the web_static folder
+of your AirBnB Clone repo, using the function do_pack
+"""
+from datetime import datetime
 from fabric.api import local
-import fabric
-from time import strftime
+import os
 
 
 def do_pack():
-    """Archive the web_static folder"""
-    filename = strftime("%Y%m%d%H%M%S")
-    archive_path = "versions/web_static_{}.tgz".format(filename)
+    """ generates a .tgz archive from web_static folder"""
 
     try:
-        local("mkdir -p versions")
-        local("tar -czvf {} web_static/".format(archive_path))
-        return archive_path
-    except fabric.exceptions.CommandExecutionError as e:
-        print(e)
+        date = datetime.now().strftime('%Y%m%d%H%M%S')
+        if not os.path.exists('versions'):
+            local('mkdir versions')
+        filename = "versions/web_static_{}.tgz".format(date)
+        local("tar -cvzf {} web_static".format(filename))
+        return filename
+    except:
         return None
