@@ -21,7 +21,7 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def texts(text):
     """ returns 'C' then value of the text"""
-    text_space = {escape(text).replace('_', ' ')}
+    text_space = escape(text).replace('_', ' ')
     return f"C {text_space}"
 
 
