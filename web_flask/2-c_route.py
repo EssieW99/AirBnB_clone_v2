@@ -1,31 +1,29 @@
 #!/usr/bin/python3
-"""Creates a basic python route"""
+""" starts a Flask web application"""
 from flask import Flask
-
+from markupsafe import escape
 
 app = Flask(__name__)
 
 
-@app.route("/", methods=['GET'], strict_slashes=False)
+@app.route('/', strict_slashes=False)
 def hello():
-    """Prints out hello"""
-    greeting = "Hello HBNB!"
-    return greeting
+    """ returns Hello HBNB!"""
+    return "Hello HBNB!"
 
 
-@app.route("/hbnb", methods=['GET'], strict_slashes=False)
-def hello_2():
-    """Prints out specified greeting"""
-    output = "HBNB"
-    return output
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
+    """returns HBNB"""
+    return "HBNB"
 
 
-@app.route("/c/<text>", methods=['GET'], strict_slashes=False)
-def flask_var(text):
-    """Ouputs predefined route text"""
-    myvar = " ".join(text.split("_"))
-    return (f"C {myvar}")
+@app.route('/c/<text>', strict_slashes=False)
+def texts(text):
+    """ returns 'C' then value of the text"""
+    text_space = {escape(text).replace('_', ' ')}
+    return f"C {text_space}"
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
