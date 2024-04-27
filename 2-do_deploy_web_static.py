@@ -49,7 +49,7 @@ def do_deploy(archive_path):
         run('mkdir -p {}'.format(folder))
 
         """ uncompress the archive from where it is to where you want to be"""
-        run('tar -xzf /tmp/{} -C {}'.format(filename, folder))
+        run('tar -xzf /tmp/{} -C {}/'.format(filename, folder))
 
         run('rm /tmp/{}'.format(filename))
 
@@ -68,7 +68,7 @@ def do_deploy(archive_path):
         """
         create a new symbolic link linked to the new version of the code
         """
-        run(f'ln -s {folder} /data/web_static/current')
+        run(f'ln -s {folder}/ /data/web_static/current')
 
         return True
     except Exception:
